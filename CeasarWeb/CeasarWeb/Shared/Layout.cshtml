@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html lang="vi-VN">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Style.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/LogIn.css" />
+    <title></title>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <div id="header">
+        <nav class="navbar navbar-expand-sm bg-light navbar-light">
+            <div class="container-fluid">
+                @*<a class="navbar-brand" href="javascript:void(0)"><img id="logo" src="~/img/logo.jpg"></a>*@
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Index">Mã hóa Ceasar</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/DES/Index">Mã hóa DES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/MoTa/MoTaCeasar">Mô tả Ceasar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/MoTa/MoTaDes">Mô tả DES</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+</body>
+</html>

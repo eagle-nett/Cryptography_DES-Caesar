@@ -1,0 +1,427 @@
+﻿
+@{
+    ViewBag.Title = "MoTaDes";
+    Layout = "~/Shared/Layout.cshtml";
+}
+
+<h2>Mô tả DES</h2>
+<h3>1.Lưu đồ thuật toán </h3>
+<div style="text-align: justify;">
+    Thuật toán DES được sử dụng để mã hóa và giải mã các block (khối) dữ liệu 64 bit dựa trên một key (khóa mã) 64 bit. Chú ý, các block được đánh số thứ tự bit từ trái sang phải và bắt đầu từ 1, bit đầu tiên bên trái là bit số 1 và bit cuối cùng bên phải là bit số 64. Quá trình giải mã và mã hóa sử dụng cùng một key nhưng thứ tự phân phối các giá trị các bit key của quá trình giải mã ngược với quá trình mã hóa.
+</div>
+<div style="text-align: justify;">
+    Một block dữ liệu sẽ được hoán vị khởi tạo (Initial Permutation) IP trước khi thực hiện tính toán mã hóa với key. Cuối cùng, kết quả tính toán với key sẽ được hoán vị lần nữa để tạo ra , đây là hoán vị đảo của hoán vị khởi tạo gọi là (Inverse Initial Permutation) IP-1. Việc tính toán dựa trên key được định nghĩa đơn giản trong một hàm f, gọi là hàm mã hóa, và một hàm KS, gọi là hàm phân phối key (key schedule). Hàm KS là hàm tạo ra các khóa vòng (round key) cho các lần lặp mã hóa. Có tất cả 16 khóa vòng từ K1 đến K16.<br>
+    <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+        <tbody>
+            <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH5pNqMccPvtNG1fmaNSAqMxMPtiyNIxDA9xWqiHXOre4Hmby-thktyG9tepw4UqMqC50i39uS_r4umnys73nVFcfsQ1OHzbRLODYjp5kS321xjwzjewpDCpfhu3UL6TfEU6JQWysQvOnZ/s1600/cipher_flow.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="817" data-original-width="584" height="640" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH5pNqMccPvtNG1fmaNSAqMxMPtiyNIxDA9xWqiHXOre4Hmby-thktyG9tepw4UqMqC50i39uS_r4umnys73nVFcfsQ1OHzbRLODYjp5kS321xjwzjewpDCpfhu3UL6TfEU6JQWysQvOnZ/s640/cipher_flow.png" width="456"></a></td></tr>
+            <tr><td class="tr-caption" style="text-align: center;">Hình 1. Giải thuật mã hóa DES</td></tr>
+        </tbody>
+    </table>
+</div>
+
+    <div style="text-align: justify;">
+        <b><span style="font-size: large;">2. Thuật toán mã hóa dữ liệu DES – Encipher</span></b>
+    </div>
+    <div style="text-align: justify;">
+        <b>2.1 Lưu đồ thuật toán mã hóa</b>
+    </div>
+    <div style="text-align: justify;">
+        Thuật toán DES được sử dụng để mã hóa và giải mã các block (khối) dữ liệu 64 bit dựa trên một key (khóa mã) 64 bit. Chú ý, các block được đánh số thứ tự bit từ trái sang phải và bắt đầu từ 1, bit đầu tiên bên trái là bit số 1 và bit cuối cùng bên phải là bit số 64. Quá trình giải mã và mã hóa sử dụng cùng một key nhưng thứ tự phân phối các giá trị các bit key của quá trình giải mã ngược với quá trình mã hóa.
+    </div>
+    <div style="text-align: justify;">
+        Một block dữ liệu sẽ được hoán vị khởi tạo (Initial Permutation) IP trước khi thực hiện tính toán mã hóa với key. Cuối cùng, kết quả tính toán với key sẽ được hoán vị lần nữa để tạo ra , đây là hoán vị đảo của hoán vị khởi tạo gọi là (Inverse Initial Permutation) IP-1. Việc tính toán dựa trên key được định nghĩa đơn giản trong một hàm f, gọi là hàm mã hóa, và một hàm KS, gọi là hàm phân phối key (key schedule). Hàm KS là hàm tạo ra các khóa vòng (round key) cho các lần lặp mã hóa. Có tất cả 16 khóa vòng từ K1 đến K16.<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH5pNqMccPvtNG1fmaNSAqMxMPtiyNIxDA9xWqiHXOre4Hmby-thktyG9tepw4UqMqC50i39uS_r4umnys73nVFcfsQ1OHzbRLODYjp5kS321xjwzjewpDCpfhu3UL6TfEU6JQWysQvOnZ/s1600/cipher_flow.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="817" data-original-width="584" height="640" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgH5pNqMccPvtNG1fmaNSAqMxMPtiyNIxDA9xWqiHXOre4Hmby-thktyG9tepw4UqMqC50i39uS_r4umnys73nVFcfsQ1OHzbRLODYjp5kS321xjwzjewpDCpfhu3UL6TfEU6JQWysQvOnZ/s640/cipher_flow.png" width="456"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 1. Giải thuật mã hóa DES</td></tr>
+            </tbody>
+        </table>
+        <b>2.2 Hoán vị khởi tạo - IP</b>
+    </div>
+    <div style="text-align: justify;">
+        Hoán vị là thay đổi ví trí các bit trong một chuỗi giá trị nhưng không làm thay đổi giá trị của các bit này. Đây là bước đầu tiên trong quy trình mã hóa dữ liệu. 64 bit dữ liệu đầu vào, gọi là plaintext, sẽ được hoán vị theo bảng mô tả sau đây.<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeYM249f93E3oqw3QvpAiQt6ajVmBeIcsN_ltILk2XJkMVjnllahuZyPA2exmVmfYAsg-9fnve93yeDbk19RPOovv1jWhMuqZ3uwXYuDR2m5tCj9px7PGS5M61DhZKmIbb3bC1t6QXeuA3/s1600/image.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="188" data-original-width="398" height="302" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeYM249f93E3oqw3QvpAiQt6ajVmBeIcsN_ltILk2XJkMVjnllahuZyPA2exmVmfYAsg-9fnve93yeDbk19RPOovv1jWhMuqZ3uwXYuDR2m5tCj9px7PGS5M61DhZKmIbb3bC1t6QXeuA3/s640/image.png" width="640"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 2. Sơ đồ hoán vị khởi tạo, ký hiệu IP</td></tr>
+            </tbody>
+        </table>
+        Chuỗi bit đầu vào được đánh số từ 1 đến 64 (tính từ trái qua phải). Sau đó, các bit này được thay đổi vị trí như sơ đồ IP, bit số 58 được đặt vào vị trí đầu tiên, bit số 50 được đặt vào vị trí thứ 2. Cứ như vậy, bit thứ 7 được đặt vào vị trí cuối cùng.&nbsp;
+    </div>
+    <div style="text-align: justify;">
+        Sau hoán vị, chuỗi bit mới được phân ra làm hai đoạn, mỗi đoạn 32 bit để bắt đầu vào quy trình tính toán mã hóa với key. Đoạn bên trái ký hiệu là L, đoạn bên phải ký hiệu là R. Đoạn L gồm các bit từ bit số 1 đến bit số 32, đoạn R gồm các bit từ bit số 33 đến bit số 64. Đoạn L của lần tính toán sau sẽ chính là đoạn R của lần tính toán trước. Đoạn R của lần tính toán sau sẽ được tính từ đoạn R trước đó qua hàm mã hóa f(R, K) rồi XOR với đoạn L của lần tính trước đó.<br>
+        <div class="separator" style="clear: both; text-align: center;">
+            <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjklpAKnkMDYGPbAzlIqYhz0hQU5vGWhmkKTFijXNmMLZPMcYoVJEkAmYbdAoBJbfQsq9968VoB6yvR4-1wpiN7F_aFpjqvzKg9k086UdyrRhxuPSa4tybVWGDD3hiaTymrcLNrBc3eP1c8/s1600/IP.PNG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="128" data-original-width="337" height="121" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjklpAKnkMDYGPbAzlIqYhz0hQU5vGWhmkKTFijXNmMLZPMcYoVJEkAmYbdAoBJbfQsq9968VoB6yvR4-1wpiN7F_aFpjqvzKg9k086UdyrRhxuPSa4tybVWGDD3hiaTymrcLNrBc3eP1c8/s320/IP.PNG" width="320"></a>
+        </div>
+        <br>
+    </div>
+    <div class="separator" style="clear: both; text-align: center;">
+    </div>
+    <div style="text-align: justify;">
+        <b>2.3 Hàm mã hóa f(R,K)</b><br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgrHkZwdk5SPhZI0WJG2FTdNu42ANhjP3AiaqfZ48BRA7j9heaPy6LtTKbcBshWPBYGhxAzDFJpErZe4p73tUvUtlOe_Z6OFFfnSe0dDMTGYtRlTA21rZintzshiJablB2yhdM-WnXyQm-n/s1600/fR_K.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="584" data-original-width="617" height="604" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgrHkZwdk5SPhZI0WJG2FTdNu42ANhjP3AiaqfZ48BRA7j9heaPy6LtTKbcBshWPBYGhxAzDFJpErZe4p73tUvUtlOe_Z6OFFfnSe0dDMTGYtRlTA21rZintzshiJablB2yhdM-WnXyQm-n/s640/fR_K.png" width="640"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 3. Tính toán hàm mã hóa f(R,K)</td></tr>
+            </tbody>
+        </table>
+        Đầu tiên, 32 bit của đoạn R được đánh số từ 1 đến 32 theo thứ tự từ trái qua phải. Giá trị này sẽ được chuyển đổi thông qua bảng tra E để tạo thành một giá trị 48 bit. Bit đầu tiên trong chuỗi giá trị 48 bit là bit số 32 của R, bit thứ 2 là bit số 1 của R, bit thứ 3 là bit số 2 của R và bit cuối cùng là bit số 1 của R.<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjm5hZiLfmA0VgikH49itEJNheFssK6LY51ox52kNFRt2xHUFqUBgUEJx2EJjlIJpChM1M48570IMKf3StyVfR38tCEiGZa8dMuTLAR0g0-1G2GQIiKd8cRvmu15irUQKzLfjZteOrB-6U8/s1600/image.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="187" data-original-width="292" height="409" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjm5hZiLfmA0VgikH49itEJNheFssK6LY51ox52kNFRt2xHUFqUBgUEJx2EJjlIJpChM1M48570IMKf3StyVfR38tCEiGZa8dMuTLAR0g0-1G2GQIiKd8cRvmu15irUQKzLfjZteOrB-6U8/s640/image.png" width="640"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 4. Bảng tra E</td></tr>
+            </tbody>
+        </table>
+        Sau khi tra bảng E, giá trị 48 bit được XOR với 48 bit của khóa vòng (cách tạo ra khóa vòng 48 bit sẽ được trình bày sau). Kết quả phép XOR được chia làm 8 block được đánh số từ 1 đến 8 theo thứ tự từ trái qua phải, mỗi block 6 bit. Mỗi block sẽ được biến đổi thông qua các hàm lựa chọn riêng biệt. Tương ứng với 8 block sẽ có 8 hàm chuyển đổi (selection function) riêng biệt là S1, S2, S3, S4, S5, S6, S7 và S8.<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEiIv2vEqsgrzOv34dx1ssXo3g5vvYufBq3Uq0i1J4Wd4cU9zaHRvaF7bSX-3Nc8d0gJD96TGygW_GgG1qnw5cD4BMEc4PI8WsDZ7mNHwaqzH5MzYkvYUDFuRtvGn_xYSgr8_WHWZ9TQEe/s1600/S+fucntion.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="541" data-original-width="1120" height="308" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEiIv2vEqsgrzOv34dx1ssXo3g5vvYufBq3Uq0i1J4Wd4cU9zaHRvaF7bSX-3Nc8d0gJD96TGygW_GgG1qnw5cD4BMEc4PI8WsDZ7mNHwaqzH5MzYkvYUDFuRtvGn_xYSgr8_WHWZ9TQEe/s640/S+fucntion.png" width="640"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 5. Các hàm S (selection fuction)</td></tr>
+            </tbody>
+        </table>
+        Việc chuyển đổi giá trị của các hàm S1, S2, ..., S8 được thực hiện bằng cách tách block 6 bit thành hai phần. Phần thứ nhất là tổ hợp của bit đầu tiên và bit cuối cùng của block để tạo thành 2 bit chọn hàng của bảng S, bảng S có 4 hàng được đánh số từ 0 đến 3 theo thứ tự từ trên xuống. Phần thứ 2 là 4 bit còn lại dùng để chọn cột của bảng S, bảng S có 16 cột được đánh số từ 0 đến 15 theo thứ tự từ trái qua phải. Như vậy, với mỗi block 8 bit ta chọn được 1 giá trị trong bảng S. Giá trị này nằm trong khoảng từ 0 đến 15 sẽ được quy đổi thành chuỗi nhị phân 4 bit tương ứng. Các chuỗi nhị phân có được sau khi chuyển đổi từ S1 đến S8 sẽ được ghép lại theo thứ tự từ trái qua phải để tạo thành một giá trị 32 bit.
+    </div>
+    <div style="text-align: justify;">
+        Ví dụ về việc thực hiện chuyển đổi hàm S, giả sử, giá trị block 6 bit đầu tiên là 011011. Ta tách chuỗi này ra làm hai tổ hợp giá trị là 01 (bit đầu tiên và bit cuối cùng) và 1101 (4 bit ở giữa). Hai tổ hợp này được dùng để chọn hàng và cột tương ứng như hình minh họa sau:<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXy98UXtZg6cJ6b5523dKvppdhQMG6q7XayKDdsg9rsymVPXDXf6AKUNqI_NjFVDPFDTgjNF499ji6LDTBjVTKQBZ33YhnWQu5LwB-88uW6Zht2IWLoFbrQJtgvhHlaCj_VgqmfgKPILF6/s1600/S+example.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="177" data-original-width="619" height="182" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXy98UXtZg6cJ6b5523dKvppdhQMG6q7XayKDdsg9rsymVPXDXf6AKUNqI_NjFVDPFDTgjNF499ji6LDTBjVTKQBZ33YhnWQu5LwB-88uW6Zht2IWLoFbrQJtgvhHlaCj_VgqmfgKPILF6/s640/S+example.png" width="640"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 6. Minh họa việc sử dụng hàm S1</td></tr>
+            </tbody>
+        </table>
+        Tổ hợp 01 sẽ chọn hàng 1, tổ hợp 1101 sẽ chọn cột 13 và kết quả trả về là 5 có giá trị nhị phân 4 bit là 0101.
+    </div>
+    <div style="text-align: justify;">
+        Qua bước chuyển đổi với các hàm lựa chọn S, kết quả thu được là một giá trị 32 bit. Giá trị này được đưa qua một hàm hoán vị P để tạo ra giá trị hàm f.<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjOt0hfRV-LDTZvxTUhyphenhyphenNagpHLbApnFyQlyYQs2y9IaMbqLbDHzuoPqVXBJATKi6XOj8cf01uoAI_vhyZ6WjPzHj6UICTfHY2GL37OgeVpNYISSX5crWzR_evSOSpfwsbd8jDiB3ZYLEgiv/s1600/image.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="208" data-original-width="147" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjOt0hfRV-LDTZvxTUhyphenhyphenNagpHLbApnFyQlyYQs2y9IaMbqLbDHzuoPqVXBJATKi6XOj8cf01uoAI_vhyZ6WjPzHj6UICTfHY2GL37OgeVpNYISSX5crWzR_evSOSpfwsbd8jDiB3ZYLEgiv/s1600/image.png"></a></td></tr>
+                <tr>
+                    <td class="tr-caption" style="text-align: center;">
+                        Hình 7. Hoán vị P trong thuật toán tính hàm mã hóa f(R,K)<br>
+                        <div>
+                            <br>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        Giá trị 32 bit thu được từ các chuyển đổi với hàm lựa chọn S sẽ được đánh số từ 1 đến 32 theo thứ tự từ trái qua phải.
+    </div>
+    <div style="text-align: justify;">
+        Theo bảng hoán vị P, bit đầu tiên sau hoán vị sẽ là bit số 16, bit thứ 2 sẽ là bit số 7 và bit cuối cùng sẽ là bit số 25. Hàm tính toán mã hóa f(R, K) được định nghĩa như sau:<br>
+        <div class="separator" style="clear: both; text-align: center;">
+            <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-F_mJvrTaMuKxcyRaOZ9B9uL-eYqWzEZDHWoQMNz1Uw1bmpJ7-5LjWMGlRaI1aEtPv9Mcd_wLW4xpjFt1JFzFHY1y6tg-iatCR9TitWdQeyfBsgLlx6tf-qOto4JQc4obFT1QMYEYPXtF/s1600/f_R_K_full.PNG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="120" data-original-width="486" height="79" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-F_mJvrTaMuKxcyRaOZ9B9uL-eYqWzEZDHWoQMNz1Uw1bmpJ7-5LjWMGlRaI1aEtPv9Mcd_wLW4xpjFt1JFzFHY1y6tg-iatCR9TitWdQeyfBsgLlx6tf-qOto4JQc4obFT1QMYEYPXtF/s320/f_R_K_full.PNG" width="320"></a>
+        </div>
+        <br>
+    </div>
+    <div class="separator" style="clear: both; text-align: center;">
+    </div>
+    <div style="text-align: justify;">
+        Trong đó:&nbsp;
+    </div>
+    <div style="text-align: justify;">
+        <ul>
+            <li>P(): là phép hoán vị P&nbsp;</li>
+            <li>Sn: là phép chuyển đổi block n (n chạy từ 1 đến 8) với hàm lựa chọn S&nbsp;</li>
+            <li>Bn: là block 6 bit thứ n (n chạy từ 1 đến 8). Block này lấy từ phép toán XOR giữa khóa vòng K và giá trị hàm E(R)</li>
+            <li>E(R): là hàm chuyển đổi giá trị R 32 bit thành giá trị 48 bit</li>
+        </ul>
+    </div>
+    <div style="text-align: justify;">
+        <b>2.4 Tính khóa vòng - KS</b>
+    </div>
+    <div style="text-align: justify;">
+        Một key có 64 bit nhưng chỉ có 56 bit được sử dụng để thực hiện tính toán giá trị khóa vòng. Key được chia làm 8 byte. Các bit ở vị trí 8, 16, 32, 40, 48, 56 và 64 là các bit parity được sử dụng để kiểm tra độ chính xác của key theo từng byte vì khi key được phân phối trên đường truyền đến bộ mã hóa giải mã thì có thể xảy ra lỗi. Parity được sử dụng là parity lẻ (odd parity).<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitiBJrZ2KW5mSRegUYfpGD8MuJvSNBRSw_jZgyHPhhyMv3Mi-Ja13rDQWHVKM2tBe_35Si5TWh-oJuSEPA4eTqtsn2wmCSFK0309Ongtw2BWecDfUg47MT9MIEvVue1nZrdwrgzP_FCx5n/s1600/KS.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="712" data-original-width="624" height="640" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitiBJrZ2KW5mSRegUYfpGD8MuJvSNBRSw_jZgyHPhhyMv3Mi-Ja13rDQWHVKM2tBe_35Si5TWh-oJuSEPA4eTqtsn2wmCSFK0309Ongtw2BWecDfUg47MT9MIEvVue1nZrdwrgzP_FCx5n/s640/KS.png" width="560"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 8. Thuật toán tính khóa vòng</td></tr>
+            </tbody>
+        </table>
+        Key gốc sẽ được thực hiện hoán vị lựa chọn PC-1. Key được đánh số từ 1 đến 64 theo thứ tự từ trái qua phải.<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT2PV1B6w7lcTb6mzINgwdno4-CcokOlQz_vCWUfh5iLDoxvGD6bweIUx5LZF9j5TYTtsvWMEk6hPexRBgIYhTiI8VMtiQUbws9VqxYWYFakI6xSN-QbGrB6YTimrxAxcq6qtJ4ratc07E/s1600/image.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="226" data-original-width="349" height="414" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT2PV1B6w7lcTb6mzINgwdno4-CcokOlQz_vCWUfh5iLDoxvGD6bweIUx5LZF9j5TYTtsvWMEk6hPexRBgIYhTiI8VMtiQUbws9VqxYWYFakI6xSN-QbGrB6YTimrxAxcq6qtJ4ratc07E/s640/image.png" width="640"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 9. Bảng hoán vị lựa chọn PC-1</td></tr>
+            </tbody>
+        </table>
+        Bảng hoán vị lựa chọn PC-1 có hai phần. Phần đầu dùng để xác định giá trị C0 và phần sau dùng để xác định giá trị D0. Theo bảng trên thì C0 là chuỗi bit có thứ tự là 57, 49, 41, ..., 36 lấy từ key gốc, D0 là chuỗi bit có thứ tự là 63, 55, 47, ..., 4 lấy từ key gốc.
+    </div>
+    <div style="text-align: justify;">
+        Sau khi xác định được giá trị ban đầu để tính key là C0 và D0 thì các khóa vòng Kn (với n từ 1 đến 16) sẽ được tính theo nguyên tắc giá trị của khóa vòng thứ n sẽ được tính từ giá trị khóa vòng thứ n-1.<br>
+        <div class="separator" style="clear: both; text-align: center;">
+            <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-GKg7iEyrFj_PIc7AK7hzl3g2BmHUHSxaboQ-sEFU9gUM4WRCN7ZRymRs4dKrY3jN_cEfORpLdUdIsN_T0eNyI1OvNNGAnVlUbIAnrtvY6TOFBTQZcnQv108xCYO4_WI2HmZ5lqHO2qzo/s1600/Kn.PNG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="52" data-original-width="249" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-GKg7iEyrFj_PIc7AK7hzl3g2BmHUHSxaboQ-sEFU9gUM4WRCN7ZRymRs4dKrY3jN_cEfORpLdUdIsN_T0eNyI1OvNNGAnVlUbIAnrtvY6TOFBTQZcnQv108xCYO4_WI2HmZ5lqHO2qzo/s1600/Kn.PNG"></a>
+        </div>
+        <br>
+    </div>
+    <div class="separator" style="clear: both; text-align: center;">
+    </div>
+    <div style="text-align: justify;">
+        Trong đó Cn và Dn được tạo từ Cn-1 và Dn-1 bằng cách dịch trái các giá trị này với số bit được quy định trong bảng sau đây:<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj91IJX2yVWFBZBKhTXyCUNuRy-VxhB_ON9i5TbddjKJXU9WrHWuopBpJifE2nNZmquRiMET4fJFQJZ9oVcYdnFgu6ioQWlvvtyXpQa4u2q6xOgHEZtnF97LlOYPb-alIFgvQ4uXwx2W3Fi/s1600/image.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="358" data-original-width="164" height="640" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj91IJX2yVWFBZBKhTXyCUNuRy-VxhB_ON9i5TbddjKJXU9WrHWuopBpJifE2nNZmquRiMET4fJFQJZ9oVcYdnFgu6ioQWlvvtyXpQa4u2q6xOgHEZtnF97LlOYPb-alIFgvQ4uXwx2W3Fi/s640/image.png" width="291"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 10. Bảng quy định số bit dịch trái khi tính khóa vòng</td></tr>
+            </tbody>
+        </table>
+        Ví dụ, theo bảng trên, C3 và D3 có được từ C2 và D2 bằng cách dịch trái 2 bit. Hay C16 và D16 có được từ C15 và D15 bằng cách dịch trái 1 bit. Dịch trái ở đây được hiểu là quay trái như minh họa sau đây:<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiq9bRX9hN5aTs-jBsHg7cvITwKBnYi6T3WP7AzzkGwljCB7eFbwuaM5rnz7VHygn602fETAk0VraN8zwyO8Pg-cqoTDKfBg83_PkA1U9BvwQDxajRmXE3Q8SJhnn3egDxC8mf4DuwQo4Yz/s1600/shift+left+kn.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="202" data-original-width="624" height="206" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiq9bRX9hN5aTs-jBsHg7cvITwKBnYi6T3WP7AzzkGwljCB7eFbwuaM5rnz7VHygn602fETAk0VraN8zwyO8Pg-cqoTDKfBg83_PkA1U9BvwQDxajRmXE3Q8SJhnn3egDxC8mf4DuwQo4Yz/s640/shift+left+kn.png" width="640"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 11. Minh họa phép dịch trái khi tính khóa vòng</td></tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+    <div class="separator" style="clear: both; text-align: center;">
+    </div>
+    <div style="text-align: justify;">
+        Sau khi tính được Cn và Dn thì chuỗi CnDn sẽ được đánh số từ 1 đến 56 theo thứ tự từ trái sang phải và được hoán vị lựa chọn lần 2 theo bảng hoán vị PC-2.<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiul8vjapae_yMiVco5t1h-sKG4FZLGFVZRP3WONXEn5lFdIXv-5xH46ixLQL1p6cvfRbKLx34McEGzMgkhqOgk8v7iZWjv5-zJCtMWYwkQabkkKK0ABPjGvxBmNUFMi9sX08xtqz0K1O3S/s1600/image.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="210" data-original-width="296" height="283" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiul8vjapae_yMiVco5t1h-sKG4FZLGFVZRP3WONXEn5lFdIXv-5xH46ixLQL1p6cvfRbKLx34McEGzMgkhqOgk8v7iZWjv5-zJCtMWYwkQabkkKK0ABPjGvxBmNUFMi9sX08xtqz0K1O3S/s400/image.png" width="400"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 12. Bảng hoán vị lựa chọn PC-2</td></tr>
+            </tbody>
+        </table>
+        Như vậy bit đầu tiên của khóa vòng Kn là bit số 14 của chuỗi CnDn, bit thứ 2 là bit số 17 của chuỗi CnDn và bit cuối cùng là bit số 32 của chuỗi CnDn.
+    </div>
+    <div style="text-align: justify;">
+        <br>
+    </div>
+    <div style="text-align: justify;">
+        <b>2.5 Hoán vị khởi tạo đảo IP-1</b>
+    </div>
+    <div style="text-align: justify;">
+        Đây là bước cuối cùng để tạo ra giá trị mã hóa. Giá trị của lần lặp mã hóa cuối cùng sẽ được hoán vị khởi tạo đảo IP-1 và tạo ra giá trị mã hóa plaintext.<br>
+        <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <tbody>
+                <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3hOOxk0oacEPMLvNUEBUeI7gkMLk2AWOoRDkzzrVCgZNLvkVEXG1IRc_fcxj5yCvsiMFJDoLLRm7AEdCPGvagVgGpZ1j77Vnm5skl-id9MZqaMDO96EcVN6Ilej4yrsBS1e_WlZUZC-W6/s1600/image.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="191" data-original-width="397" height="306" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3hOOxk0oacEPMLvNUEBUeI7gkMLk2AWOoRDkzzrVCgZNLvkVEXG1IRc_fcxj5yCvsiMFJDoLLRm7AEdCPGvagVgGpZ1j77Vnm5skl-id9MZqaMDO96EcVN6Ilej4yrsBS1e_WlZUZC-W6/s640/image.png" width="640"></a></td></tr>
+                <tr><td class="tr-caption" style="text-align: center;">Hình 13. Bảng hoán vị khởi tạo đảo IP-1</td></tr>
+            </tbody>
+        </table>
+        <b>2.6 Ví dụ về mã hóa DES</b>
+    </div>
+    <div style="text-align: justify;">
+        Giả sử ta có dữ liệu cần mã hóa và key là:&nbsp;
+    </div>
+    <ul>
+        <li style="text-align: justify;">M = 00123456789abcde (Hex) = 0000 0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1111&nbsp;</li>
+        <li style="text-align: justify;">K = 0133457799bbcdff (Hex) = 0000 0001 0011 0011 0100 0101 0111 0111 1001 10001 1011 1011 1100 1100 1111 1111</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Từ hai đầu vào này, giá trị của từng bước tính toán mã hóa DES sẽ được minh họa chi tiết sau đây.
+</div>
+<div style="text-align: justify;">
+    <i><b>2.6.1 Hoán vị khởi tạo – IP</b></i>
+</div>
+<div style="text-align: justify;">
+    Thông điệp M được đánh số vị trí bit từ trái qua phải như sau:<br>
+    <div class="separator" style="clear: both; text-align: center;">
+        <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-TrlO8JkFUlci2ykN1xRK4S1fKyQoKm0i_snX-r3AcLsR667N6euYIB-7V0Ch2d94Z-tYykr2pk0oTPJshHCqPiHbRkdrPZcc3IjzjQfjaGMqcNlE6pERQ5EJnBoJ2acx0iKc72Fg3Xvf/s1600/en-1.PNG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="70" data-original-width="1050" height="42" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-TrlO8JkFUlci2ykN1xRK4S1fKyQoKm0i_snX-r3AcLsR667N6euYIB-7V0Ch2d94Z-tYykr2pk0oTPJshHCqPiHbRkdrPZcc3IjzjQfjaGMqcNlE6pERQ5EJnBoJ2acx0iKc72Fg3Xvf/s640/en-1.PNG" width="640"></a>
+    </div>
+    <br>
+</div>
+<div style="text-align: justify;">
+    Sắp xếp lại thứ tự các bit của M theo bảng hoán vị IP, kết quả có được sau bước này là:
+</div>
+<div style="text-align: justify;">
+    IP(M) = 98fecc00e054f0aa (Hex) = 1001 1000 1111 1110 1100 1100 0000 0000 1110 0000 0101 0100 1111 0000 1010 1010
+</div>
+<div style="text-align: justify;">
+    <b>2.6.2 Tính toán giá trị các khóa vòng – KS</b>
+</div>
+<div style="text-align: justify;">
+    Để tính toán hàm mã hóa f, chúng ta cần có giá trị khóa cho từng lần lặp mã hóa. Key ban đầu được đánh số thứ tự bit từ trái qua phải như sau:
+</div>
+<div style="text-align: justify;">
+    <div class="separator" style="clear: both; text-align: center;">
+        <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYlhIqp8yvcM5jq2-8VSy4SdPd_oiEUcoRY9BaOmeg-Ki-7Z3V4UrfCJQN5XpM7az3zBH4NdBMV8InBJDRQQ4xvepWht_1Q1BEDw1TlghZjiQlyicpeQEr8kjdqJ95kXwjTo-CVmQdKb8-/s1600/en-1.PNG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="70" data-original-width="1050" height="42" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYlhIqp8yvcM5jq2-8VSy4SdPd_oiEUcoRY9BaOmeg-Ki-7Z3V4UrfCJQN5XpM7az3zBH4NdBMV8InBJDRQQ4xvepWht_1Q1BEDw1TlghZjiQlyicpeQEr8kjdqJ95kXwjTo-CVmQdKb8-/s640/en-1.PNG" width="640"></a>
+    </div>
+    <br>
+</div>
+<div style="text-align: justify;">
+    Sau khi sắp xếp các bit theo bảng hoán vị PC-1 ở Hình 1‑8, kết quả thu được là hai giá trị đầu như sau:&nbsp;
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>C0 = f0ccaab (Hex) = 1111 0000 1100 1100 1010 1010 1011&nbsp;</li>
+        <li>D0 = aaccf0a (Hex) = 1010 1010 1100 1100 1111 0000 1010&nbsp;</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Để tính khóa vòng đầu tiên K1 thì C0 và D0 sẽ được dịch (quay) trái 1 bit. Giá trị thu được sau khi dịch trái là:&nbsp;
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>C1 = e199557 (Hex) = 1110 0001 1001 1001 0101 0101 0111&nbsp;</li>
+        <li>D1 = 5599e15 (Hex) = 0101 0101 1001 1001 1110 0001 0101&nbsp;</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Hai chuỗi C1 và D1 được ghép lài thành một chuỗi 56 bit là e1995575599e15. Chuỗi này được hoán vị bằng bảng PC-2 ở Hình 1‑11 để được giá trị khóa vòng 48 bit thứ nhất K1.&nbsp;
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>K1 = 1b02efdb49a5 (Hex)&nbsp;</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Để tính khóa vòng K2 thì lấy C1 và D1 dịch trái với số lượng bit theo bảng ở Hình 1‑9, rồi lấy kết quả hoán vị theo bảng PC-2. Quá trình cứ tiếp tục cho đến khóa vòng cuối cùng là K16. Kết quả các khóa vòng 48 bit thu được là:
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>K2 = 69aed925ae66 (Hex)&nbsp;</li>
+        <li>K3 = 55fc8ab4acd2&nbsp;</li>
+        <li>K4 = 72add2ad8657&nbsp;</li>
+        <li>K5 = 7cec071fe6c2&nbsp;</li>
+        <li>K6 = 63a51e3cc545&nbsp;</li>
+        <li>K7 = 6c84b78ae4c6&nbsp;</li>
+        <li>K8 = f7883aece781&nbsp;</li>
+        <li>K9 = c0dbeb27b839&nbsp;</li>
+        <li>K10 = b1f347631d76&nbsp;</li>
+        <li>K11 = 215fc30d89be&nbsp;</li>
+        <li>K12 = 7171f5455cd5&nbsp;</li>
+        <li>K13 = 95c5d14b80fd&nbsp;</li>
+        <li>K14 = 5743b783đ8d&nbsp;</li>
+        <li>K15 = bf91850a17b5 K16 = cb3d0bbc7072</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    <b>2.6.3 Tính hàm mã hóa f(R,K)</b>
+</div>
+<div style="text-align: justify;">
+    Sau bước hoán vị khởi tạo IP, giá trị IP(M) sẽ được tách làm hai phần là:&nbsp;
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>R0 = e054f0aa (Hex) = 1110 0000 0101 0100 1111 0000 1010 1010&nbsp;</li>
+        <li>L0 = 98fecc00 (Hex) = 1001 1000 1111 1110 1100 1100 0000 0000&nbsp;</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Giá trị 32 bit của R0 được tra qua bảng E để tạo ra một giá trị 48 bit.&nbsp;
+</div>
+
+<div style="text-align: justify;">
+    <ul>
+        <li>E(R0) = 7002a97a1555 (Hex)&nbsp;</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Giá trị này được XOR với khóa vòng thứ nhất K1 và được kết quả&nbsp;
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>XOR(E(R0), K1) = 6b0046a15cf0 (Hex)</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Giá trị trên được chia thành 8 nhóm theo thứ tự từ trái qua phải, mỗi nhóm 6 bit để đưa đến các bảng S.<br>
+    <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+        <tbody>
+            <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjo8ECYuf5zh_2zvHXqgPd-rwH0tldVVqvezHumqKwL2RAdmzld6fnmoZeY09ep6l3w5ueZyefbEt1pyE-GVaUwGMpIp4BpkVpESMpExvbesoxQ1a9URdOraJrjPvHspwnzL0IGR-1tnoVF/s1600/bang+S+ex.PNG" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="544" data-original-width="757" height="458" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjo8ECYuf5zh_2zvHXqgPd-rwH0tldVVqvezHumqKwL2RAdmzld6fnmoZeY09ep6l3w5ueZyefbEt1pyE-GVaUwGMpIp4BpkVpESMpExvbesoxQ1a9URdOraJrjPvHspwnzL0IGR-1tnoVF/s640/bang+S+ex.PNG" width="640"></a></td></tr>
+            <tr><td class="tr-caption" style="text-align: center;">Hình 14. Ví dụ về tra bảng S</td></tr>
+        </tbody>
+    </table>
+    Các giá trị đầu ra sau bước tra các bảng S sẽ được ghép lại theo thứ tự từ S1 đến S8 để được 1 giá trị 32 bit.&nbsp;
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>S1()S2()S3()S4()S5()S6()S7()S8() = 10010101110100111010110101010000 = 95d3ad50 (Hex)&nbsp;</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Giá trị này được hoán vị bằng bảng P để cho ra giá trị của hàm f.&nbsp;
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>f(R0,K1) = 97d1619a (Hex) = 1001 0111 1101 0001 0110 0001 1001 1010&nbsp;</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    Tương tự, ta có giá trị hàm f tại các vòng lặp mã hóa còn lại như sau:&nbsp;
+</div>
+<div style="text-align: justify;">
+    <ul>
+        <li>f(R1,K2) = 88488d0b (Hex)&nbsp;</li>
+        <li>f(R2,K3) = da3b2692&nbsp;</li>
+        <li>f(R3,K4) = f44950b2&nbsp;</li>
+        <li>f(R4,K5) = d83237fd&nbsp;</li>
+        <li>f(R5,K6) = afc43b25&nbsp;</li>
+        <li>f(R6,K7) = 4e5123a2&nbsp;</li>
+        <li>f(R7,K8) = 6cfdecb8&nbsp;</li>
+        <li>f(R8,K9) = fb0600b1&nbsp;</li>
+        <li>f(R9,K10) = d51508e4&nbsp;</li>
+        <li>f(R10,K11) = fcf67146&nbsp;</li>
+        <li>f(R11,K12) = 704fa3a5&nbsp;</li>
+        <li>f(R12,K13) = 7bfe2806&nbsp;</li>
+        <li>f(R13,K14) = 65fc7a48&nbsp;</li>
+        <li>f(R14,K15) = 513f1d11 f(R15,K16) = cbf5252d</li>
+    </ul>
+</div>
+<div style="text-align: justify;">
+    <b>2.6.4 Giá trị tại mỗi vòng lặp mã hóa</b>
+</div>
+<div style="text-align: justify;">
+    Giá trị của hàm f(R,K) được sử dụng để tính giá trị Rn và Ln tại mỗi vòng lặp mã hóa theo công thức:<br>
+    <div class="separator" style="clear: both; text-align: center;">
+        <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5gbLO1bWWl23i8h4YgRHi_MR2gi86Er8LttW861WJcUGX2ohHs6om5XnpvpfeU7ftkJqv1mFR4lN8ScmifYf0O9ySV-WwQorhczEZ_EGTKSGjqWyluACY4opuF_bVozcqKzccwXFIVogN/s1600/lapmahoa.PNG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="117" data-original-width="348" height="107" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5gbLO1bWWl23i8h4YgRHi_MR2gi86Er8LttW861WJcUGX2ohHs6om5XnpvpfeU7ftkJqv1mFR4lN8ScmifYf0O9ySV-WwQorhczEZ_EGTKSGjqWyluACY4opuF_bVozcqKzccwXFIVogN/s320/lapmahoa.PNG" width="320"></a>
+    </div>
+    <br>
+</div>
+<div style="text-align: justify;">
+    Thay vào công thức trên ta có các kết quả như sau:<br>
+    <div class="separator" style="clear: both; text-align: center;">
+        <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgviNLfb7rBwptDvaxDRt1WBBU6aRh03trRsGIBga4WrnjUmviNGuH458xDdQzUwNBmdLsUhe0ZCOkS7LbR7EBvY_0551M_hrvo0Ih90fzrL7LJc43KcljiCts16H4Am-QK5qdqkSoA6pWP/s1600/lapmahoa+result.PNG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="767" data-original-width="886" height="552" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgviNLfb7rBwptDvaxDRt1WBBU6aRh03trRsGIBga4WrnjUmviNGuH458xDdQzUwNBmdLsUhe0ZCOkS7LbR7EBvY_0551M_hrvo0Ih90fzrL7LJc43KcljiCts16H4Am-QK5qdqkSoA6pWP/s640/lapmahoa+result.PNG" width="640"></a>
+    </div>
+    <br>
+</div>
+<div style="text-align: justify;">
+    <b>2.6.5 Hoán vị khởi tạo đảo IP-1&nbsp;</b>
+</div>
+<div style="text-align: justify;">
+    Giá trị R16 và L16 của vòng lặp mã hóa cuối cùng sẽ được ghép lại thành một chuỗi 64 bit để thực hiện hoán vị theo bảng IP-1.
+</div>
+<div style="text-align: justify;">
+    Kết quả của phép hoán vị này chính là giá trị mã hóa (ciphertext) cần tính.
+</div><div style="text-align: justify;">
+    IP-1(R16, L16) = 1abff69d5a93e80b (Hex) = 0001 1010 1011 1111 1111 0110 1001 1101 0101 1010 1001 0011 1110 1000 0000 1011
+</div>
+      <div style="text-align: justify;">
+          <b>3. Thuật toán giải mã dữ liệu DES</b>
+      </div>
+
+      <div style="text-align: justify;">
+          Các bước của quá trình giải mã dữ liệu được thực hiện tương tự như quá trình mã hóa dữ liệu. Trong quá trình giải mã có một số thay đổi như sau:&nbsp;
+      </div>
+      <div style="text-align: justify;">
+          <ul>
+              <li>Đầu vào lúc này là dữ liệu cần giải mã (ciphertext) và đầu ra là kết quả giải mã được (plaintext).</li>
+              <li>Khóa vòng sử dụng trong các vòng lặp giải mã có thứ tự ngược với quá trình mã hóa. Nghĩa là, tại vòng lặp giải mã đầu tiên, khóa vòng được sử dụng là K16. Tại vòng lặp giải mã thứ 2, khóa vòng được sử dụng là K15, và tại vòng lặp giải mã cuối cùng thì khóa vòng được sử dụng là K1.</li>
+          </ul>
+          <table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;">
+              <tbody>
+                  <tr><td style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh27P2tN43FIi8pMAalmUxXWxB_HBjeczOyApAjOmIhGXlK5sfDz3YF_3nycTa43A9dAJJZnBAlgVR8dHJNM7JlHuqphEDCHHXamj6YPI9fAmKZwkclfF8xV-yQTQe1XRBUqxM79FXcMOrd/s1600/de-cipher.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" data-original-height="817" data-original-width="583" height="640" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh27P2tN43FIi8pMAalmUxXWxB_HBjeczOyApAjOmIhGXlK5sfDz3YF_3nycTa43A9dAJJZnBAlgVR8dHJNM7JlHuqphEDCHHXamj6YPI9fAmKZwkclfF8xV-yQTQe1XRBUqxM79FXcMOrd/s640/de-cipher.png" width="456"></a></td></tr>
+                  <tr><td class="tr-caption" style="text-align: center;">Hình 16. Quá trình giải mã dữ liệu DES</td></tr>
+              </tbody>
+          </table>
+         </div>
+<h3>3.Giải thích mã nguồn</h3>
+<p>Thay vì phải xử lý từng bước của thuật toán mã hóa và giải mã DES thì ASP.NET có hỗ trợ thư viện <b>System.Security.Cryptography</b>
+    để sử dụng các thuật toán mã hóa và giải mã mà không cần phải viết lại các bước của thuật toán
+</p>
+<p>Thư viện System.Security.Cryptography hỗ trợ các thuật toán như: DES, AES, 3DES, RSA, DSA, SHA-1, SHA-2, MD5 </p>
+<h3>Hàm mã hóa DES</h3>
+<p>Hàm này nhận dữ liệu đầu vào là 1 chuỗi HEX và KEY có độ dài 8 byte (64 bit)</p>
+<p>Tạo đối tượng mã hóa DES với một khóa và IV.</p>
+<p>Đảm bảo dữ liệu đầu vào có độ dài là bội số của 8 (vì DES mã hóa theo khối 64-bit).</p>
+<p>Sử dụng CryptoStream để mã hóa dữ liệu đầu vào.</p>
+<p>Kết quả mã hóa sau đó được chuyển thành chuỗi hexadecimal và trả về.</p>
+<p><img src="~/img/MaHoaDes.jpg" /></p>
+<h3>Hàm giải mã DES</h3>
+<p>Hàm này thực hiện quá trình giải mã một mảng byte đã được mã hóa bằng DES.</p>
+<p>Khóa (key) và vector khởi tạo (IV) phải khớp với những gì đã được sử dụng trong quá trình mã hóa.</p>
+<p>Sau khi giải mã, kết quả được chuyển đổi thành chuỗi hexadecimal và trả về.</p>
+<p><img src="~/img/GiaiMaDes.jpg"/></p>

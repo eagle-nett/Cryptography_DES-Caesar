@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Shared/Layout.cshtml";
+}
+
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2>Mã hóa và Giải mã DES</h2>
+        </div>
+        <div class="card-body">
+            <form action="/Des/Process" method="post">
+                <div class="form-group">
+                    <label for="plainTextHex">Nhập thông điệp (Hex):</label>
+                    <input type="text" class="form-control" id="plainTextHex" name="plainTextHex" required />
+                </div>
+                <div class="form-group">
+                    <label for="keyHex">Nhập khóa (Hex, 16 ký tự):</label>
+                    <input type="text" class="form-control" id="keyHex" name="keyHex" required />
+                </div>
+                <div class="form-group">
+                    <label for="actionType">Chọn chế độ:</label>
+                    <select class="form-control" id="actionType" name="actionType" required>
+                        <option value="Encrypt">Mã hóa</option>
+                        <option value="Decrypt">Giải mã</option>
+                    </select>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Thực hiện</button>
+            </form>
+
+            @if (ViewBag.Result != null)
+            {
+                <hr />
+                <h3>Kết quả:</h3>
+                <p>@ViewBag.Result</p>
+            }
+        </div>
+    </div>
+</div>

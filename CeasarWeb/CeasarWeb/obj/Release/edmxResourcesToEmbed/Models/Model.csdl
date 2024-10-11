@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DuLieu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BanRo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Khoa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DuLieuDes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DuLieu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Khoa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="DataEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DuLieu" EntityType="Self.DuLieu" />
+    <EntitySet Name="DuLieuDes" EntityType="Self.DuLieuDes" />
+  </EntityContainer>
+</Schema>

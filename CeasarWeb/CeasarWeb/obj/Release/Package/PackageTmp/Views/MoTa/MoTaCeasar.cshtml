@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "MoTaCeasar";
+    Layout = "~/Shared/Layout.cshtml";
+}
+
+<h2>Mã hóa Caesar</h2>
+<p>
+    Mã hóa Caesar (Xê da), còn gọi là mật mã dịch chuyển, là một trong những mật mã đơn giản và được biết đến nhiều nhất.
+    Hệ mã Caesar là một hệ mã hóa thay thế đơn âm, làm việc trên bẳng chữ cái tiếng Anh 26 ký tự.
+    Đó là một dạng của mật mã thay thế, trong đó mỗi ký tự trong văn bản được thay thế bằng một ký tự cách nó một đoạn trong bảng chữ cái để tạo thành bản mã.
+</p>
+<p>
+    Chẳng hạn nếu chìa khóa là +3 tức là xoay theo chiều thuận +3 ô thì các chữ cái A, B, C…X, Y, Z trong plaintext sẽ chuyển đến D, E, F …A, B, C trong ciphertext, từ HANOI trong plaintext được
+    mã hóa thành từ KDQRL trong ciphertext. Người nhận sẽ giải mã bằng cách xoay ngược vành chữ ngoài -3 ô thì tìm lại được plaintext.
+</p>
+<p><img src="https://images.viblo.asia/8b1bca00-273e-44da-9838-1e0e7a097012.PNG"></p>
+<h3 id="_11-ma-hoa-1">1. Mã hóa</h3>
+<blockquote>
+    <p>Ci = (Pi + ki mod m) mod 26</p>
+</blockquote>
+<p>Trong công thức <strong>Ci = (Pi + ki mod m) mod 26</strong> , các biến có ý nghĩa như sau:</p>
+<p>
+    <strong>Ci</strong>: Ký tự mã hóa ở vị trí thứ i trong văn bản mã hóa.) <br>
+    <strong>Pi</strong>: Ký tự cần mã hóa ở vị trí thứ i trong văn bản gốc.) <br>
+    <strong>ki</strong>: Khóa hoặc "chìa khóa" sử dụng để mã hóa.) <br>
+    <strong>m</strong>: Một giá trị hằng số (thường là kích thước của bảng mã hoặc tập hợp các ký tự có thể được mã hóa).) <br>
+</p>
+<p>
+    Trong ví dụ sau muốn mã hóa một ký tự Pi bằng cách thêm một giá trị khóa ki vào nó,
+    sau đó thực hiện toán tử mod m và cuối cùng mod 26 để đảm bảo kết quả nằm trong khoảng từ 0 đến 25 (vì có 26 chữ cái trong bảng chữ cái tiếng Anh).
+    <br>
+    <br>
+    Dưới đây là một ví dụ cụ thể:
+</p>
+<p>
+    Văn bản gốc: "HELLO") <br>
+    Khóa ki: 3 (được chọn ngẫu nhiên)) <br>
+    Mỗi ký tự Pi trong "HELLO" sẽ được mã hóa bằng công thức <strong>Ci = (Pi + 3) mod 26</strong>.) <br>
+</p>
+<p>
+    H	(7 + 3) mod 26 = 10 (ký tự "K") <br>
+    E	(4 + 3) mod 26 = 7 (ký tự "H") <br>
+    L	(11 + 3) mod 26 = 14 (ký tự "O")<br>
+    L	(11 + 3) mod 26 = 14 (ký tự "O")<br>
+    O	(14 + 3) mod 26 = 17 (ký tự "R")
+</p>
+<p>Do đó, khi mã hóa "HELLO" với khóa 3, ta sẽ nhận được "KHOOR" như là văn bản đã được mã hóa.</p>
+<h3>2. Giải mã</h3>
+<blockquote>
+    <p>Pi = (Ci - ki mod m) mod 26</p>
+</blockquote>
+<p>Trong công thức <strong>Pi = (Ci - ki mod m) mod 26</strong>, giữa các biến, ta có:</p>
+<p>
+    <strong>Pi</strong>: Ký tự gốc ở vị trí thứ i trong văn bản gốc.) <br>
+    <strong>Ci</strong>: Ký tự đã được mã hóa ở vị trí thứ i trong văn bản mã hóa.) <br>
+    <strong>ki</strong>: Khóa hoặc "chìa khóa" sử dụng để mã hóa.) <br>
+    <strong>m</strong>: Một giá trị hằng số (thường là kích thước của bảng mã hoặc tập hợp các ký tự có thể được mã hóa).) <br>
+</p>
+<p>Dưới đây là một ví dụ cụ thể:</p>
+<p>
+    Văn bản mã hóa: "KHOOR") <br>
+    Khóa ki: 3 (giả sử ta biết khóa đã được sử dụng)) <br>
+    Mỗi ký tự Ci trong "KHOOR" sẽ được giải mã bằng công thức Pi = (Ci - 3) mod 26.) <br>
+</p>
+<p>
+    K	(10 - 3) mod 26 = 7 (ký tự "H") <br>
+    H	(7 - 3) mod 26 = 4 (ký tự "E")<br>
+    O	(14 - 3) mod 26 = 11 (ký tự "L")<br>
+    O	(14 - 3) mod 26 = 11 (ký tự "L")<br>
+    R	(17 - 3) mod 26 = 14 (ký tự "O")<br>
+</p>
+<p>Do đó, khi ta giải mã "KHOOR" với khóa 3, sẽ nhận được "HELLO" như là văn bản đã giải mã.</p>
+<h3>3. Giải thích mã nguồn</h3>
+<h4>Hàm mã hóa Ceasar</h4>
+<p>Hàm mã hóa này sẽ nhận một chuỗi đầu vào và một giá trị khóa. Tiếp theo nó chuyển toàn bộ chuỗi thành một mảng các ký tự, kiểm tra xem có kí tự nào là số hay không ( nếu là số thì giữ nguyên) <br />Xác định chữ cái là chữ hoa hay thường sau đó tính toán vị trí của chữ cái đó dựa theo bảng mã ASCII và chuyển chúng lại thành chuỗi</p>
+<p><img src="~/img/MaHoaCeasar.jpg"/></p>
+<h4>Hàm giải mã Ceasar</h4>
+<p>Hiểu đơn giản hàm mã hóa này sẽ lấy vị trí hiện tại của ký tự trừ đi giá trị khóa để quay lại giá trị ban đầu</p>
+<p><img src="~/img/GiaiMaCeasar.jpg" /></p>
